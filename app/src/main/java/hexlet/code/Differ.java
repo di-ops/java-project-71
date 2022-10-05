@@ -45,7 +45,7 @@ public class Differ {
                 return;
             }
             if (content2.containsKey(p)) {
-                diff.append(String.format("  - %s: %s%n", p, content2.get(p)));
+                diff.append(String.format("  + %s: %s%n", p, content2.get(p)));
             }
         });
         diff.append("}");

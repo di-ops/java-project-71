@@ -22,12 +22,11 @@ public class App implements Callable<Integer> {
     private String filePath2;
 
     @Override
-    public Integer call() throws Exception {
+    public final Integer call() throws Exception {
         String difference = Differ.generate(filePath1, filePath2);
         System.out.println(difference);
         return 0;
     }
-
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
