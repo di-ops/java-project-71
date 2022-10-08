@@ -12,6 +12,10 @@ import java.util.TreeSet;
 
 public class Differ {
 
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        return generate(filePath1, filePath2, "stylish");
+    }
+
     public static String generate(String filePath1, String filePath2, String formatOutput) throws Exception {
         File file1 = new File(filePath1);
         File file2 = new File(filePath2);

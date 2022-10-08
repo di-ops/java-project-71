@@ -13,7 +13,7 @@ public class Parser {
         String fileExtension = getFileExtension(file);
         return switch (fileExtension) {
             case "json" -> parseJson(file);
-            case "yaml" -> parseYaml(file);
+            case "yml", "yaml" -> parseYaml(file);
             default -> throw new RuntimeException("Unknown file extension: " + fileExtension);
         };
     }
