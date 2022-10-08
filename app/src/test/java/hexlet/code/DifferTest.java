@@ -52,4 +52,15 @@ class DifferTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void generateJsonWithArrayInPlainFormat() throws Exception {
+        String actual = Differ.generate(
+                "src/test/resources/json_with_array1.json",
+                "src/test/resources/json_with_array2.json",
+                "plain");
+        String expected = Files.readString(Path.of("src/test/resources/plain_with_array.txt"));
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
