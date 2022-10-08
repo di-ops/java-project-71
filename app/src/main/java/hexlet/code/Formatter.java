@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class Formatter {
 
-    public static String format (List<Map<String, Object>> difference, String format){
-         return switch (format){
+    public static String format(List<Map<String, Object>> difference, String format) {
+        return switch (format) {
             case "stylish" -> formatStylish(difference);
             case "plain" -> "";
             default -> throw new RuntimeException("Unknown output format: " + format);
         };
     }
 
-    private static String formatStylish (List<Map<String, Object>> differences){
+    private static String formatStylish(List<Map<String, Object>> differences) {
         StringBuilder diff = new StringBuilder();
         diff.append("{\n");
         differences.forEach(e -> {
             String differenceType = e.get("differenceType").toString();
-            switch (differenceType){
+            switch (differenceType) {
                 case "unchanged" -> diff.append(String.format("    %s: %s%n", e.get("key"), e.get("value")));
                 case "updated" -> {
                     diff.append(String.format("  - %s: %s%n", e.get("key"), e.get("oldValue")));
@@ -26,7 +26,8 @@ public class Formatter {
                 }
                 case "removed" -> diff.append(String.format("  - %s: %s%n", e.get("key"), e.get("value")));
                 case "added" -> diff.append(String.format("  + %s: %s%n", e.get("key"), e.get("value")));
-                default -> throw new RuntimeException("Intern exception. differenceType is null or unknown : " + e.get("differenceType"));
+                default -> throw new RuntimeException("Intern exception. differenceType is null or unknown : "
+                        + e.get("differenceType"));
             }
         });
         diff.append("}");

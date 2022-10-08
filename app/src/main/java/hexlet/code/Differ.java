@@ -6,28 +6,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) throws Exception {
+    public static String generate(String filePath1, String filePath2, String formatOutput) throws Exception {
         File file1 = new File(filePath1);
         File file2 = new File(filePath2);
-        Map<String, String> fromFile1 = Parser.parse(file1);
-        Map<String, String> fromFile2 = Parser.parse(file2);
-        return difference(fromFile1, fromFile2);
+        Map<String, Object> fromFile1 = Parser.parse(file1);
+        Map<String, Object> fromFile2 = Parser.parse(file2);
+        List<Map<String, Object>> differences = difference(fromFile1, fromFile2);
+        return Formatter.format(differences, formatOutput);
     }
 
-    private static String difference(Map<String, String> content1, Map<String, String> content2) {
-        Set<String> params = new TreeSet<>();
+    private static List<Map<String, Object>> difference(Map<String, Object> content1, Map<String, Object> content2) {
+        Set<Object> params = new TreeSet<>();
         params.addAll(content1.keySet());
         params.addAll(content2.keySet());
         List<Map<String, Object>> differences = new ArrayList<>();
         params.forEach(p -> {
             Map<String, Object> pair = new HashMap<>();
             if (content1.containsKey(p) && content2.containsKey(p)) {
-                if (content1.get(p).equals(content2.get(p))) {
+                if (Objects.equals(content1.get(p), content2.get(p))) {
                     pair.put("key", p);
                     pair.put("value", content1.get(p));
                     pair.put("differenceType", "unchanged");
@@ -54,6 +56,6 @@ public class Differ {
                 differences.add(pair);
             }
         });
-        return Formatter.format(differences, "stylish");
+        return differences;
     }
 }

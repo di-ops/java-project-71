@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, String> parse(File file) throws Exception {
+    public static Map<String, Object> parse(File file) throws Exception {
         String fileExtension = getFileExtension(file);
         return switch (fileExtension) {
             case "json" -> parseJson(file);
@@ -18,13 +18,13 @@ public class Parser {
         };
     }
 
-    private static Map<String, String> parseJson(File fileJson) throws Exception {
+    private static Map<String, Object> parseJson(File fileJson) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(fileJson, new TypeReference<>() {
         });
     }
 
-    private static Map<String, String> parseYaml(File fileYaml) throws Exception {
+    private static Map<String, Object> parseYaml(File fileYaml) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         return objectMapper.readValue(fileYaml, new TypeReference<>() {
         });
