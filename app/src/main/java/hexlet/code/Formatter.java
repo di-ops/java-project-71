@@ -1,14 +1,18 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.List;
 import java.util.Map;
 
 public class Formatter {
 
-    public static String format(List<Map<String, Object>> differences, String format) {
+    public static String format(List<Map<String, Object>> differences, String format) throws JsonProcessingException {
         return switch (format) {
             case "stylish" -> formatStylish(differences);
             case "plain" -> formatPlain(differences);
+            case "json" -> formatJson(differences);
             default -> throw new RuntimeException("Unknown output format: " + format);
         };
     }
@@ -51,6 +55,11 @@ public class Formatter {
         });
         return diff.toString().trim();
     }
+    private static String formatJson(List<Map<String, Object>> differences) throws JsonProcessingException {
+
+        return new ObjectMapper().writeValueAsString(differences);
+    }
+
 
     private static String valueToPlainFormat(Object o) {
         if (o instanceof String) {
