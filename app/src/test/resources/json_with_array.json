@@ -1,0 +1,122 @@
+[
+  {
+    "differenceType": "unchanged",
+    "value": [
+      "a",
+      "b",
+      "c"
+    ],
+    "key": "chars1"
+  },
+  {
+    "newValue": false,
+    "differenceType": "updated",
+    "oldValue": [
+      "d",
+      "e",
+      "f"
+    ],
+    "key": "chars2"
+  },
+  {
+    "newValue": true,
+    "differenceType": "updated",
+    "oldValue": false,
+    "key": "checked"
+  },
+  {
+    "newValue": [
+      "value1",
+      "value2"
+    ],
+    "differenceType": "updated",
+    "oldValue": null,
+    "key": "default"
+  },
+  {
+    "newValue": null,
+    "differenceType": "updated",
+    "oldValue": 45,
+    "key": "id"
+  },
+  {
+    "differenceType": "removed",
+    "value": "value1",
+    "key": "key1"
+  },
+  {
+    "differenceType": "added",
+    "value": "value2",
+    "key": "key2"
+  },
+  {
+    "differenceType": "unchanged",
+    "value": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "key": "numbers1"
+  },
+  {
+    "newValue": [
+      22,
+      33,
+      44,
+      55
+    ],
+    "differenceType": "updated",
+    "oldValue": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "key": "numbers2"
+  },
+  {
+    "differenceType": "removed",
+    "value": [
+      3,
+      4,
+      5
+    ],
+    "key": "numbers3"
+  },
+  {
+    "differenceType": "added",
+    "value": [
+      4,
+      5,
+      6
+    ],
+    "key": "numbers4"
+  },
+  {
+    "differenceType": "added",
+    "value": {
+      "nestedKey": "value",
+      "isNested": true
+    },
+    "key": "obj1"
+  },
+  {
+    "newValue": "Another value",
+    "differenceType": "updated",
+    "oldValue": "Some value",
+    "key": "setting1"
+  },
+  {
+    "newValue": 300,
+    "differenceType": "updated",
+    "oldValue": 200,
+    "key": "setting2"
+  },
+  {
+    "newValue": "none",
+    "differenceType": "updated",
+    "oldValue": true,
+    "key": "setting3"
+  }
+]
