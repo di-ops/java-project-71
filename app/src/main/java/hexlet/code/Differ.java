@@ -2,13 +2,12 @@ package hexlet.code;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Differ {
 
@@ -19,47 +18,23 @@ public class Differ {
     public static String generate(String filePath1, String filePath2, String formatOutput) throws Exception {
         File file1 = new File(filePath1);
         File file2 = new File(filePath2);
-        Map<String, Object> fromFile1 = Parser.parse(file1);
-        Map<String, Object> fromFile2 = Parser.parse(file2);
-        List<Map<String, Object>> differences = difference(fromFile1, fromFile2);
+        Map<String, Object> data1 = Parser.parse(getFileContent(file1), getFileExtension(file1));
+        Map<String, Object> data2 = Parser.parse(getFileContent(file2), getFileExtension(file2));
+        List<Map<String, Object>> differences = TreeDifference.build(data1, data2);
         return Formatter.format(differences, formatOutput);
     }
 
-    private static List<Map<String, Object>> difference(Map<String, Object> content1, Map<String, Object> content2) {
-        Set<Object> params = new TreeSet<>();
-        params.addAll(content1.keySet());
-        params.addAll(content2.keySet());
-        List<Map<String, Object>> differences = new ArrayList<>();
-        params.forEach(p -> {
-            Map<String, Object> pair = new HashMap<>();
-            if (content1.containsKey(p) && content2.containsKey(p)) {
-                if (Objects.equals(content1.get(p), content2.get(p))) {
-                    pair.put("key", p);
-                    pair.put("value", content1.get(p));
-                    pair.put("differenceType", "unchanged");
-                } else {
-                    pair.put("key", p);
-                    pair.put("oldValue", content1.get(p));
-                    pair.put("newValue", content2.get(p));
-                    pair.put("differenceType", "updated");
-                }
-                differences.add(pair);
-                return;
-            }
-            if (content1.containsKey(p)) {
-                pair.put("key", p);
-                pair.put("value", content1.get(p));
-                pair.put("differenceType", "removed");
-                differences.add(pair);
-                return;
-            }
-            if (content2.containsKey(p)) {
-                pair.put("key", p);
-                pair.put("value", content2.get(p));
-                pair.put("differenceType", "added");
-                differences.add(pair);
-            }
-        });
-        return differences;
+    private static String getFileExtension(File file) {
+        String name = file.getName();
+        int lastIndexOf = name.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return ""; // empty extension
+        }
+        return name.substring(lastIndexOf + 1);
+    }
+
+    private static String getFileContent(File file) throws IOException {
+        Path path = Paths.get(file.getPath());
+        return Files.readString(path);
     }
 }

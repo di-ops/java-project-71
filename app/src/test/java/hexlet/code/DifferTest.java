@@ -86,4 +86,24 @@ class DifferTest {
                 }).toString()
         );
     }
+
+    @Test
+    void generateJsonWithArrayInDefaultFormat() throws Exception {
+        String actual = Differ.generate(
+                "src/test/resources/json_with_array1.json",
+                "src/test/resources/json_with_array2.json");
+        String expected = Files.readString(Path.of("src/test/resources/stylish_with_array.txt"));
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void generateYamlWithArrayInDefaultFormat() throws Exception {
+        String actual = Differ.generate(
+                "src/test/resources/yaml_with_array1.yaml",
+                "src/test/resources/yaml_with_array2.yaml");
+        String expected = Files.readString(Path.of("src/test/resources/stylish_with_array.txt"));
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
